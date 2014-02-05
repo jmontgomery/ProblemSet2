@@ -1,7 +1,7 @@
 rm(list = ls()) #clear the workspace
 ##Question 1
 set.seed(12345)
-results<- sample(1:100, 10, replace=TRUE) #generate random election results 
+results<- sample(1:100, 10, replace=TRUE)#generate random election results 
 my.fnc<- function(results,stat){ #function to derive the statistics
   i<- as.numeric(substr(results, start=1, stop=1)) #takes the first integers and stores
   if(stat=="m"){        #if stat option is specified as "m", returns m statistics
@@ -21,16 +21,19 @@ my.fnc<- function(results,stat){ #function to derive the statistics
   else{     #if stat option is not specified as "m" or "d", it returns both statistics
     for(n in 1:9){  #derive m statistics, same as above
       X<- (sum(results[i==n]))/(sum(results)-log(1+1/i))
-      m<- sqrt(length(results))*max(X)  
-  }
-    for(n in 1:9){  #derive d statistics, same as above
+      m<- sqrt(length(results))*max(X)
       Y<- sum((sum(results[i==n]))/(sum(results)-log(1+1/i))^2)
       d<- sqrt(length(results))*sqrt(Y)
-    }
-    output<-list(m,d)  #return two values in a function
-    return(output)
+      output<-c(m,d)  
+      return(output) #return two values in the function
+    }   
 }
- m
+}  
+#try the function
+my.fnc(results=results, stat="m")
+my.fnc(results=results, stat="d")
+my.fnc(results=results, stat="")
+
 ##Question 2
 print.benfords<- function(){
   if(m>=0.851 & m<0.967){
