@@ -1,6 +1,5 @@
 rm(list = ls()) #clear the workspace
 ##Question 1
-set.seed(12345)
 results<- sample(1:100, 10, replace=TRUE)#generate random election results 
 my.fnc<- function(results,stat){ #function to derive the statistics
   i<- as.numeric(substr(results, start=1, stop=1)) #takes the first integers and stores
@@ -29,32 +28,33 @@ my.fnc<- function(results,stat){ #function to derive the statistics
     }   
 }
 }  
-#try the function
-my.fnc(results=results, stat="m")
-my.fnc(results=results, stat="d")
-my.fnc(results=results, stat="")
+#try the function and pass the values to the following print function
+value.m<- my.fnc(results=results, stat="m")
+value.d<- my.fnc(results=results, stat="d")
 
 ##Question 2
 print.benfords<- function(){
-  if(m>=0.851 & m<0.967){
+  if(value.m>=0.851 & value.m<0.967){
     asterisk.m<- c("*")
-    }else if(m>=0.967 & m<1.212){
+    }else if(value.m>=0.967 & value.m<1.212){
     asterisk.m<- c("**")
-    }else if(m>=1.212){
+    }else if(value.m>=1.212){
     asterisk.m<- c("***")
-    }else{
+    }else if(value.m<0.851){
     asterisk.m<- c("")
     }
-  
-  if(d>=1.212 & d<1.330){
+  if(value.d>=1.212 & value.d<1.330){
     asterisk.d<- c("*")
-    }else if(d>=1.330 & d<1.569){
+    }else if(value.d>=1.330 & value.d<1.569){
     asterisk.d<- c("**")
-    }else if(d>=1.569){
+    }else if(value.d>=1.569){
     asterisk.d<- c("***")
-    }else{
+    }else if(value.d<1.212){
     asterisk.d<- c("")
   }
-  output.list<- list(m=c(m, asterisk.m) d=c(d, asterisk.d))
-  table(output.list)
+  t<- matrix(c("Leemis’ m", round(value.m, digits=3), asterisk.m,"Cho-Gains’ d", round(value.d, digits=3), asterisk.d),nrow=2, ncol=3, byrow=TRUE)
+  rownames(t)<- c("1", "2")
+  colnames(t)<- c("Statistic", "Value", "Significance")
+  return(as.table(t))
 }
+print.benfords()
