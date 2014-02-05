@@ -58,3 +58,16 @@ print.benfords<- function(){
   return(as.table(t))
 }
 print.benfords()
+
+##Question 3
+dataset1<- c(10,10,10,10,10)
+dataset2<- c(20,50,60,70,80)
+unit.test<- function(){
+  x1<- c(0.851<my.fnc(results=dataset1, stat="m"))
+  x2<- c(1.212<my.fnc(results=dataset1, stat="d"))
+  x3<- c(0.851<my.fnc(results=dataset2, stat="m"))
+  x4<- c(1.212<my.fnc(results=dataset2, stat="d"))
+  logical.x<- c(x1,x2,x3,x4)
+  return(all(logical.x))
+}
+unit.test()
